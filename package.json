@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build shortlist-ngrx-helper",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -20,9 +20,12 @@
     "@angular/router": "~12.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "@ngrx/effects": "^13.1.0",
+    "@ngrx/store": "^13.1.0"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~12.2.17",
     "@angular/cli": "~12.2.8",
     "@angular/compiler-cli": "~12.2.0",
     "@types/jasmine": "~3.8.0",
@@ -33,6 +36,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "ng-packagr": "^12.1.1",
     "typescript": "~4.3.5"
   }
 }

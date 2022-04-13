@@ -1,0 +1,15 @@
+{
+  "name": "shortlist-ngrx-helper",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "allowedNonPeerDependencies": {
+    "@ngrx/effects": "^13.1.0",
+    "@ngrx/store": "^13.1.0"
+  }
+}

@@ -1,0 +1,3 @@
+<div *ngIf="(projects$ | async) let projects">
+  <p *ngIf="projects.isLoading">loading...</p>
+</div>
