@@ -12,5 +12,5 @@ import {LetDirective} from './let.directive';
   ],
   exports: [LetDirective]
 })
-export class LetModule {
+export class LetDirectiveModule {
 }

@@ -1,27 +1,110 @@
-# ShortlistNgrxHelper
+# NGRX Helper Library
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.8.
+This NGRX Helper Library includes convenience methods to create `actions`, `reducers` & `effects` for standard http calls.
 
-## Development server
+**On top of that some miscellaneous features like:**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Wrapper Type for loading Data (States: `value: T`, `isLoading: boolean` & `error: HttpErrorResponse`)
+* Auto-Unsubscribe subscriptions on Component Destroy
+* `*ngLet` Directive as an alternative to `*ngIf` but without removing the view when the value is falsy
 
-## Code scaffolding
+## Ngrx Helper Implementation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Initial setup of the Store, Actions & Reducers
 
-## Build
+````typescript
+import {LazyValue, createHttpReducer, createHttpActions} from 'shortlist-ngrx-helper';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+
+export interface ProjectState {
+  project?: LazyValue<Project>;
+}
+
+const initialState: ProjectState = {
+  project: undefined
+}
+
+// {request, response, error, reset} Generates 4 Actions
+// string => request payload type; Project => response payload type
+export const projectLoadActions = createHttpActions<string, Project>('[PROJECT] Project by ID');
+
+// generates 4 reducers which listens to all actions above (loading, value, error, empty)
+export const appReducer = createHttpReducer(projectLoadActions, initialState, 'project');
+
+// normal ngrx selector
+export const selectProject = createSelector(
+  createFeatureSelector('appReducer'),
+  state => state.projects
+);
+````
+
+<br>
+
+2. Listen on `projectLoadActions` and bind http service call to response action
+
+````typescript
+import {HttpClient} from '@angular/common/http';
+import {createHttpEffect} from 'shortlist-ngrx-helper';
+import {Actions} from '@ngrx/effects';
+
+@Injectable()
+export class ProjectEffects {
+
+  project$ = createHttpEffect<string, Project>(
+    this.actions$,
+    projectLoadActions,
+    (id: string) => this.http.get<Project[]>('/api/projects', {observe: 'response'})
+  );
+
+  constructor(private actions$: Actions,
+              private http: HttpClient) {
+  }
+}
+````
+
+<br>
+
+3. Use it in the application just like NGRX. Don't forget to include the `reducers` & `effects` in the Angular `Module`.
+
+````typescript
+@Component({...})
+export class ProjectHelperComponent {
+
+  project$: Observable<LazyValue<Project> | undefined>;
+
+  constructor(private store: Store) {
+    store.dispatch(projectLoadActions.request({})); // call backend
+    this.projects$ = store.select(selectProjects);
+  }
+
+  // example reset action (sets project to empty)
+  resetProject() {
+    this.store.dispatch(projectLoadActions.reset({}));
+  }
+}
+````
+
+<br>
+
+In case any error happens all the information needed are included in the `LazyValue` wrapper:
+
+````typescript
+export class LazyValue<T> {
+  constructor(public value: T | undefined,
+              public isLoading: boolean,
+              public error: HttpErrorResponse | undefined) {
+  }
+}
+````
+
+## Example App
+
+A very small example app can be found in `projects/demo-app`. This includes a brief comparison between `ngrx-data` (`project-data` directory)
+and the `shortlist-ngrx-helper` (`project-helper` directory) implementation.
+
+### Running the Example locally
+
+1. Run `nmp start` & `npm mock-server` for a dev server.
+2. Navigate to `http://localhost:4200/`.
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

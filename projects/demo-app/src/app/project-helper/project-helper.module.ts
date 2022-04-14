@@ -7,7 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {projectFeatureKey, projectReducer, ProjectState} from './store/project.store';
 import {ProjectService} from './service/project.service';
 import {ProjectHelperComponent} from './project-helper/project-helper.component';
-import {LetModule} from '../../../../shortlist-ngrx-helper/src/lib/let/let.module';
+import {LetDirectiveModule} from '../../../../shortlist-ngrx-helper/src/lib/let/let-directive.module';
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import {LetModule} from '../../../../shortlist-ngrx-helper/src/lib/let/let.modul
     StoreModule.forFeature(projectFeatureKey, projectReducer),
     EffectsModule.forFeature([ProjectEffects]),
     HttpClientModule,
-    LetModule
+    LetDirectiveModule
   ],
   exports: [
     ProjectHelperComponent,

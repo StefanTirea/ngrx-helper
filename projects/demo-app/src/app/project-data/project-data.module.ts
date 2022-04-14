@@ -6,7 +6,7 @@ import {ProjectViewComponent} from './project-view/project-view.component';
 import {ProjectService} from './service/project.service';
 import {StoreModule} from '@ngrx/store';
 import {projectFeatureKey, projectReducer} from './store/project.store';
-import {LetModule} from '../../../../shortlist-ngrx-helper/src/lib/let/let.module';
+import {LetDirectiveModule} from '../../../../shortlist-ngrx-helper/src/lib/let/let-directive.module';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import {LetModule} from '../../../../shortlist-ngrx-helper/src/lib/let/let.modul
     CommonModule,
     StoreModule.forFeature(projectFeatureKey, projectReducer),
     EntityDataModule.forRoot(entityConfig),
-    LetModule
+    LetDirectiveModule
   ],
   providers: [ProjectService],
   exports: [ProjectViewComponent]

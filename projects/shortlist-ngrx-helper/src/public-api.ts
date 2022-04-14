@@ -2,8 +2,13 @@
  * Public API Surface of shortlist-ngrx-helper
  */
 
+// ngrx helper methods
 export * from './lib/ngrx/ngrx-http-helper';
 export * from './lib/ngrx/ngrx-app-helper';
-export * from './lib/lazy-value';
 export {RequestActionProps, ResponseActionProps, ErrorActionProps} from './lib/ngrx/ngrx-util';
-export * from './lib/let/let.module';
+
+// wrapper type for lazy state
+export * from './lib/lazy-value';
+
+// alternative directive to `*ngIf` without removing the view when falsy
+export * from './lib/let/let-directive.module';
