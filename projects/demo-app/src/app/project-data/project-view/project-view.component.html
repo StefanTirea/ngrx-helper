@@ -1,0 +1,25 @@
+<div *ngIf="(projects$ | async) let projects">
+
+  <p *ngIf="loading$ | async">loading...</p>
+
+
+  <div *ngFor="let project of projects">
+    <button type="button" (click)="selectProject(project.id)">{{project.name}}</button>
+    <br>
+  </div>
+
+  <br>
+
+  <div *ngLet="selectedProject$ | async let projectId">
+    <p *ngIf="projectId">Selected Project ID: {{projectId}}</p>
+    <p *ngIf="!projectId">No Selection</p>
+    <p *ngLet="pro"></p>
+  </div>
+
+  <br>
+
+  <button (click)="resetSelectedProject()">Reset</button>
+
+
+  <p style="color: red" *ngIf="error">An unexpected error happenend!</p>
+</div>

@@ -1,6 +1,10 @@
 import {ActionCreator, createAction, createReducer, on, props} from '@ngrx/store';
-import {LazyValue} from './lazy-value';
+import {LazyValue} from '../lazy-value';
 import {createNewState, ErrorActionProps, RequestActionProps, ResponseActionProps} from './ngrx-util';
+import {Actions, createEffect, CreateEffectMetadata, ofType} from '@ngrx/effects';
+import {catchError, map, mergeMap} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 
 /**
  * Holds all possible required actions to call & handle a REST Endpoint
@@ -32,5 +36,17 @@ export const createHttpReducer = <S, K extends keyof S>(actions: HttpActions, in
     on(actions.error, (state: S, error: ErrorActionProps<any>) => (createNewState(state, fieldName, LazyValue.error(error.httpError)))),
     // @ts-ignore
     on(actions.reset, (state: S) => (createNewState(state, fieldName, LazyValue.loading()))),
+  );
+};
+
+export const createHttpEffect = <REQ, RES>(actions$: Actions, myAction: HttpActions, fn: (payload: REQ | undefined) => Observable<HttpResponse<RES>>): Observable<HttpResponse<RES>> & CreateEffectMetadata => {
+  return createEffect(() => actions$.pipe(
+      ofType(myAction.request),
+      mergeMap((payload: RequestActionProps<REQ>) => fn(payload.payload)
+        .pipe(
+          map(httpResponse => myAction.response({payload: httpResponse.body, requestPayload: payload.payload})),
+          catchError((err: HttpErrorResponse) => of(myAction.error({requestPayload: payload.payload, httpStatus: err.status, httpError: err})))
+        ))
+    )
   );
 };

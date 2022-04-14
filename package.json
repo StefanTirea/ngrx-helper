@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build shortlist-ngrx-helper",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "mock-server": "json-server --watch projects/demo-app/src/projects.json"
   },
   "private": true,
   "dependencies": {
@@ -18,11 +19,13 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@ngrx/data": "^13.1.0",
+    "@ngrx/effects": "^13.1.0",
+    "@ngrx/entity": "^13.1.0",
+    "@ngrx/store": "^13.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
-    "@ngrx/effects": "^13.1.0",
-    "@ngrx/store": "^13.1.0"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.2.17",

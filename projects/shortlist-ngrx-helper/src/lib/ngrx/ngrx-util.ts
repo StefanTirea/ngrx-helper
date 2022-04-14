@@ -1,5 +1,6 @@
 import {HttpErrorResponse} from '@angular/common/http';
-import {LazyValue} from './lazy-value';
+import {LazyValue} from '../lazy-value';
+import {Action, ActionReducer} from '@ngrx/store';
 
 export interface RequestActionProps<REQ> {
   payload?: REQ;
@@ -20,5 +21,13 @@ export const createNewState = <S, K extends keyof S>(state: S, fieldName: K, val
   const newState = {...state};
   // @ts-ignore
   newState[fieldName] = value;
+  return newState;
+};
+
+export const combineHelperReducers = <S>(...reducers: ActionReducer<S>[]): (state: S, action: Action) => S => (state: S, action: Action) => {
+  let newState = state;
+  reducers.forEach(item => {
+    newState = item(newState, action);
+  });
   return newState;
 };

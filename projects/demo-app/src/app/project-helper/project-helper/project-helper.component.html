@@ -1,0 +1,26 @@
+<div *ngIf="(projects$ | async) let lazyProjects">
+
+  <p *ngIf="lazyProjects.isLoading">loading...</p>
+
+
+  <div *ngIf="lazyProjects.value let projects">
+    <div *ngFor="let project of projects">
+      <button type="button" (click)="selectProject(project.id)">{{project.name}}</button>
+      <br>
+    </div>
+  </div>
+
+  <br>
+
+  <div *ngLet="selectedProject$ | async let projectId">
+    <p *ngIf="projectId">Selected Project ID: {{projectId}}</p>
+    <p *ngIf="!projectId">No Selection</p>
+  </div>
+
+  <br>
+
+  <button (click)="resetSelectedProject()">Reset</button>
+
+
+  <p style="color: red" *ngIf="lazyProjects.error">An unexpected error happenend!</p>
+</div>
