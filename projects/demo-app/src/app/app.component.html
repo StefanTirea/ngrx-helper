@@ -1,11 +1,16 @@
-<!-- Ngrx Helper Classes Example -->
-<h1>Shortlist NGRX Helper</h1>
-<app-project-helper></app-project-helper>
+<h1>Choose Sample App</h1>
+<button (click)="ngrxHelperActive = !ngrxHelperActive">
+  {{ngrxHelperActive ? 'Show Ngrx Data' : 'Show Ngrx Helper'}}
+</button>
 
-<br>
-<br>
-<br>
+<!-- Ngrx Helper Classes Example -->
+<ng-container *ngIf="ngrxHelperActive">
+  <h1>Shortlist NGRX Helper</h1>
+  <app-project-helper></app-project-helper>
+</ng-container>
 
 <!-- Ngrx Data Example -->
-<h1>NGRX Data</h1>
-<app-project-view></app-project-view>
+<ng-container *ngIf="!ngrxHelperActive">
+  <h1>NGRX Data</h1>
+  <app-project-view></app-project-view>
+</ng-container>
