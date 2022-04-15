@@ -1,5 +1,5 @@
 import {selectedProjectIdActions} from './project.actions';
-import {combineHelperReducers} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-util';
+import {combineReducersHelper} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-util';
 import {createAppReducer} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-app-helper';
 
 export const projectFeatureKey = 'project-data';
@@ -13,6 +13,6 @@ const initialState: ProjectState = {
 };
 
 
-export const projectReducer = combineHelperReducers(
+export const projectReducer = combineReducersHelper(
   createAppReducer(selectedProjectIdActions, initialState, 'selectedProjectId')
 );

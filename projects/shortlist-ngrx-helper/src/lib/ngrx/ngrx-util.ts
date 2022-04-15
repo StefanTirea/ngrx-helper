@@ -1,6 +1,6 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {LazyValue} from '../lazy-value';
-import {Action, ActionCreator, ActionReducer} from '@ngrx/store';
+import {Action, ActionCreator, ActionReducer, createFeatureSelector, createSelector} from '@ngrx/store';
 import {TypedAction} from "@ngrx/store/src/models";
 
 export interface RequestActionProps<REQ> {
@@ -36,8 +36,24 @@ export const createNewState = <S, K extends keyof S>(state: S, fieldName: K, val
   return newState;
 };
 
-export const combineHelperReducers = <S>(...reducers: ActionReducer<S>[]): (state: S, action: Action) => S => (state: S, action: Action) => {
+/* State & Reducer Helpers */
+
+export const combineReducersHelper = <S>(...reducers: ActionReducer<S>[]): (state: S, action: Action) => S => (state: S, action: Action) => {
   let newState = state;
   reducers.forEach(item => newState = item(newState, action));
   return newState;
+};
+
+/**
+ * Short form to void including the {@link createFeatureSelector} in every {@link createSelector}
+ * @param featureKey is the reducer name in the store
+ *
+ * Example:
+ * ```typescript
+ * const exampleSelector = createSelectorHelper<ExampleState>('example');
+ * export const selectName = exampleSelector(state => state.name);
+ * ```
+ */
+export const createSelectorHelper = <S>(featureKey: string) => {
+  return <Result>(fn: (state: S) => Result) => createSelector(createFeatureSelector<S>(featureKey), fn);
 };

@@ -1,6 +1,6 @@
 # NGRX Helper Library
 
-This NGRX Helper Library includes convenience methods to create `actions`, `reducers` & `effects` for standard http calls.
+This NGRX Helper Library includes convenience methods to avoid `actions`, `reducers`, `effects` & `selectors` boilerplate code (especially for http calls).
 
 **On top of that some miscellaneous features like:**
 
@@ -31,11 +31,9 @@ export const projectLoadActions = createHttpActions<string, Project>('[PROJECT] 
 // generates 4 reducers which listens to all actions above (loading, value, error, empty)
 export const appReducer = createHttpReducer(projectLoadActions, initialState, 'project');
 
-// normal ngrx selector
-export const selectProject = createSelector(
-  createFeatureSelector('appReducer'),
-  state => state.projects
-);
+// helper ngrx selector to avoid duplicate code
+const selector = createSelectorHelper<ProjectState>('appReducer');
+export const selectProject = selector(state => state.projects);
 ````
 
 <br>
