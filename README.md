@@ -22,14 +22,15 @@
 
 ## About
 
-This NGRX Helper Library includes convenience methods to avoid `actions`, `reducers`, `effects` & `selectors`
-boilerplate code (especially for http calls).
+This NGRX Helper Library includes **only** convenience methods to avoid `actions`, `reducers`, `effects` & `selectors`
+boilerplate code (for http calls).
 
-**On top of that some miscellaneous features like:**
+**On top of that, some miscellaneous features are also included:**
 
 * Wrapper Type for loading Data (States: `value: T`, `isLoading: boolean` & `error: HttpErrorResponse`)
 * Auto-Unsubscribe subscriptions on Component Destroy
 * `*ngLet` Directive as an alternative to `*ngIf` but without removing the view when the value is falsy
+* `AutoUnsubscribe` from an `Observable<T>` on Angular Component Destroy Lifecycle
 
 ## Installation
 
@@ -163,6 +164,34 @@ export class ProjectView {
   <p *ngIf="projectId">Selected Project ID: {{projectId}}</p>
   <p *ngIf="!projectId">No Selection</p>
 </div>
+```
+
+### Auto-Unsubscribe
+
+Sometimes an `Observable<T>` has to be subscribed in the component and you have to handle the tedious task of
+unsubscribing.
+
+To simplify this, the component can extend from the `AutoUnsubscribe` class.
+It includes the `autoUnsubscribe(...)` method which can be wrapped around an `Observable<T>` before subscribing.
+
+**Example Usage:**
+
+```typescript
+import {Observable} from "rxjs";
+import {Component} from "@angular/core";
+import {AutoUnsubscribe} from "./auto-unsubscribe";
+
+@Component()
+export class ProjectView extends AutoUnsubscribe {
+
+  constructor() {
+    super();
+    const value$: Observable<number> = of(1, 2, 3);
+    // subscription cleaned up on component destroy
+    this.autoUnsubscribe(value$)
+      .subscribe(value => console.log(value));
+  }
+}
 ```
 
 ## Example App
