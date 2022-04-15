@@ -1,6 +1,29 @@
-# NGRX Helper Library
+<h1 align="center">NGRX Helper Library</h1>
 
-This NGRX Helper Library includes convenience methods to avoid `actions`, `reducers`, `effects` & `selectors` boilerplate code (especially for http calls).
+<p align="center">
+  <br />
+  <a href="https://github.com/StefanTirea/shortlist-ngrx-helper/issues">Report Bug</a>
+  ·
+  <a href="https://github.com/StefanTirea/shortlist-ngrx-helper/issues">Request Feature</a>
+</p>
+
+
+
+<!-- TABLE OF CONTENTS -->
+<summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#About">About The Project</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#example-app">Example App</a></li>
+    <li><a href="#limitations">Limitations</a></li>
+    <li><a href="#build">Build</a></li>
+  </ol>
+
+## About
+
+This NGRX Helper Library includes convenience methods to avoid `actions`, `reducers`, `effects` & `selectors`
+boilerplate code (especially for http calls).
 
 **On top of that some miscellaneous features like:**
 
@@ -8,9 +31,19 @@ This NGRX Helper Library includes convenience methods to avoid `actions`, `reduc
 * Auto-Unsubscribe subscriptions on Component Destroy
 * `*ngLet` Directive as an alternative to `*ngIf` but without removing the view when the value is falsy
 
-## Ngrx Helper Implementation
+## Installation
 
-1. Initial setup of the Store, Actions & Reducers
+Soon.
+
+## Usage
+
+### Ngrx Helper
+
+Reduce boilerplate code with convenient ngrx methods, which generate the required actions, reducers & effects. On top of
+that, loading/error handling is included in the reducers & effects. The result is mapped into the `LazyValue<T>` wrapper
+type.
+
+**1. Initial setup of the Store, Actions & Reducers**
 
 ````typescript
 import {LazyValue, createHttpReducer, createHttpActions} from 'shortlist-ngrx-helper';
@@ -33,12 +66,12 @@ export const appReducer = createHttpReducer(projectLoadActions, initialState, 'p
 
 // helper ngrx selector to avoid duplicate code
 const selector = createSelectorHelper<ProjectState>('appReducer');
-export const selectProject = selector(state => state.projects);
+export const selectProject = selector(state => state.project);
 ````
 
 <br>
 
-2. Listen on `projectLoadActions` and bind http service call to response action
+**2. Listen on `projectLoadActions` and bind http service call to response action**
 
 ````typescript
 import {HttpClient} from '@angular/common/http';
@@ -51,7 +84,7 @@ export class ProjectEffects {
   project$ = createHttpEffect<string, Project>(
     this.actions$,
     projectLoadActions,
-    (id: string) => this.http.get<Project[]>('/api/projects', {observe: 'response'})
+    (id: string) => this.http.get<Project>(`/api/projects/${id}`, {observe: 'response'})
   );
 
   constructor(private actions$: Actions,
@@ -62,7 +95,8 @@ export class ProjectEffects {
 
 <br>
 
-3. Use it in the application just like NGRX. Don't forget to include the `reducers` & `effects` in the Angular `Module`.
+**3. Use it in the application just like NGRX. Don't forget to include the `reducers` & `effects` in the
+Angular `Module`.**
 
 ````typescript
 @Component({...})
@@ -72,7 +106,7 @@ export class ProjectHelperComponent {
 
   constructor(private store: Store) {
     store.dispatch(projectLoadActions.request({})); // call backend
-    this.projects$ = store.select(selectProjects);
+    this.project$ = store.select(selectProjects);
   }
 
   // example reset action (sets project to empty)
@@ -84,7 +118,8 @@ export class ProjectHelperComponent {
 
 <br>
 
-In case any error happens all the information needed are included in the `LazyValue` wrapper:
+In case any error happens or you want to show something while its loading, all the information needed are included in
+the `LazyValue<T>` wrapper:
 
 ````typescript
 export class LazyValue<T> {
@@ -95,14 +130,57 @@ export class LazyValue<T> {
 }
 ````
 
+### NgLet Directive
+
+Handling the subscription in the view with the `async` pipe in combination with `*ngIf="... let value"` is the goto
+solution when working with `Observable<T>`.
+
+However, `*ngIf` removes the view when the value is falsy. To prevent this, the `*ngLet` directive behaves the same
+as `*ngIf` but the view is visible at all times.
+
+**Example:**
+
+```typescript
+import {Observable} from "rxjs";
+import {LazyValue} from "./lazy-value";
+import {Component} from "@angular/core";
+import {Store} from "@ngrx/store";
+
+@Component()
+export class ProjectView {
+  // value can be LazyValue<string>, undefined & null when resolved with async
+  selectedProject$: Observable<LazyValue<string> | undefined>;
+
+  constructor(private store: Store) {
+    this.selectedProject$ = store.select(selectProjectId);
+  }
+}
+```
+
+```angular2html
+// no matter the value, the view is always shown
+<div *ngLet="selectedProject$ | async let projectId">
+  <p *ngIf="projectId">Selected Project ID: {{projectId}}</p>
+  <p *ngIf="!projectId">No Selection</p>
+</div>
+```
+
 ## Example App
 
-A very small example app can be found in `projects/demo-app`. This includes a brief comparison between `ngrx-data` (`project-data` directory)
+A very small example app can be found in `projects/demo-app`. This includes a brief comparison
+between `ngrx-data` (`project-data` directory)
 and the `shortlist-ngrx-helper` (`project-helper` directory) implementation.
 
 ### Running the Example locally
 
 1. Run `nmp start` & `npm mock-server` for a dev server.
 2. Navigate to `http://localhost:4200/`.
+
+## Limitations
+
+The NGRX Helper methods **requires** using the built-in wrapper type `LazyValue<T>`. Currently, there is no other way
+around it.
+
+## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.

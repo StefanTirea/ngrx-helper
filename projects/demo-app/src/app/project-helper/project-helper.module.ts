@@ -4,7 +4,7 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {ProjectEffects} from './service/project.effect';
 import {HttpClientModule} from '@angular/common/http';
-import {projectFeatureKey, projectReducer, ProjectState} from './store/project.store';
+import {projectFeatureKey, projectReducer} from './store/project.store';
 import {ProjectService} from './service/project.service';
 import {ProjectHelperComponent} from './project-helper/project-helper.component';
 import {LetDirectiveModule} from '../../../../shortlist-ngrx-helper/src/lib/let/let-directive.module';

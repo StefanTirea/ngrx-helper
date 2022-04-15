@@ -3,15 +3,24 @@ import {LazyValue} from '../lazy-value';
 import {Action, ActionCreator, ActionReducer, createFeatureSelector, createSelector} from '@ngrx/store';
 import {TypedAction} from "@ngrx/store/src/models";
 
+/**
+ * Type for all Request Actions
+ */
 export interface RequestActionProps<REQ> {
   payload?: REQ;
 }
 
+/**
+ * Type for all Response Actions
+ */
 export interface ResponseActionProps<REQ, RES> {
   payload: RES | null;
   requestPayload?: REQ;
 }
 
+/**
+ * Type for all Error Actions
+ */
 export interface ErrorActionProps<REQ> {
   requestPayload?: REQ;
   httpStatus?: number;
@@ -29,7 +38,8 @@ export type ResponseActionCreator<REQ, RES> = ActionCreator<string, (props: Resp
 export type ErrorActionCreator<REQ> = ActionCreator<string, (props: ErrorActionProps<REQ>) => ErrorAction<REQ>>;
 export type ResetActionCreator = ActionCreator<string, () => TypedAction<string>>;
 
-export const createNewState = <S, K extends keyof S>(state: S, fieldName: K, value: LazyValue<S[K]>): S => {
+// extract state manipulation to avoid typescript compile error
+export const copyStateAndSetValue = <S, K extends keyof S>(state: S, fieldName: K, value: LazyValue<S[K]>): S => {
   const newState = {...state};
   // @ts-ignore
   newState[fieldName] = value;
@@ -38,17 +48,32 @@ export const createNewState = <S, K extends keyof S>(state: S, fieldName: K, val
 
 /* State & Reducer Helpers */
 
-export const combineReducersHelper = <S>(...reducers: ActionReducer<S>[]): (state: S, action: Action) => S => (state: S, action: Action) => {
-  let newState = state;
-  reducers.forEach(item => newState = item(newState, action));
-  return newState;
+/**
+ * Combine an array of reducers for the same feature into a single reducer function.
+ * Each reducer manipulates the state and returns it until all reducers are run
+ * @param reducers An array of reducers which manipulates the same state
+ *
+ * @example
+ *
+ * ```typescript
+ * const reducerForFeatureA = createReducer(...);
+ * const reducer2ForFeatureA = createReducer(...);
+ * const combinedReducer = combineFeatureReducers(reducerForFeatureA, reducer2ForFeatureA);
+ * ```
+ */
+export const combineFeatureReducers = <S>(...reducers: ActionReducer<S>[]): (state: S, action: Action) => S => {
+  return (state: S, action: Action) => {
+    reducers.forEach((item: ActionReducer<S>) => state = item(state, action));
+    return state;
+  };
 };
 
 /**
- * Short form to void including the {@link createFeatureSelector} in every {@link createSelector}
+ * Short form to avoid including the {@link createFeatureSelector} in every {@link createSelector}
  * @param featureKey is the reducer name in the store
  *
- * Example:
+ * @example
+ *
  * ```typescript
  * const exampleSelector = createSelectorHelper<ExampleState>('example');
  * export const selectName = exampleSelector(state => state.name);

@@ -3,9 +3,11 @@
  */
 
 // ngrx helper methods
-export * from './lib/ngrx/ngrx-http-helper';
-export * from './lib/ngrx/ngrx-app-helper';
-export {RequestActionProps, ResponseActionProps, ErrorActionProps, combineReducersHelper, createSelectorHelper} from './lib/ngrx/ngrx-util';
+export {HttpActions, createHttpActions, createHttpReducer, createHttpEffect} from './lib/ngrx/ngrx-http-helper';
+export {AppActions, createAppActions, createAppReducer} from './lib/ngrx/ngrx-app-helper';
+export {
+  RequestActionProps, ResponseActionProps, ErrorActionProps, combineFeatureReducers, createSelectorHelper
+} from './lib/ngrx/ngrx-util';
 
 // wrapper type for lazy state
 export * from './lib/lazy-value';
