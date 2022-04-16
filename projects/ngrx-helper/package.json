@@ -1,5 +1,5 @@
 {
-  "name": "shortlist-ngrx-helper",
+  "name": "ngrx-helper",
   "version": "0.1.0",
   "peerDependencies": {
     "@angular/common": "^13.3.3",

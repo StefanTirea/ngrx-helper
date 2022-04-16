@@ -7,7 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {projectFeatureKey, projectReducer} from './store/project.store';
 import {ProjectService} from './service/project.service';
 import {ProjectHelperComponent} from './project-helper/project-helper.component';
-import {LetDirectiveModule} from 'shortlist-ngrx-helper';
+import {LetDirectiveModule} from 'ngrx-helper';
 
 
 @NgModule({

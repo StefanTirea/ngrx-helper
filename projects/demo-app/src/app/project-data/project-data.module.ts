@@ -6,7 +6,7 @@ import {ProjectViewComponent} from './project-view/project-view.component';
 import {ProjectService} from './service/project.service';
 import {StoreModule} from '@ngrx/store';
 import {projectFeatureKey, projectReducer} from './store/project.store';
-import {LetDirectiveModule} from 'shortlist-ngrx-helper';
+import {LetDirectiveModule} from 'ngrx-helper';
 
 
 @NgModule({

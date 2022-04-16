@@ -1,5 +1,5 @@
 import {projectFeatureKey, ProjectState} from './project.store';
-import {createSelectorHelper} from 'shortlist-ngrx-helper';
+import {createSelectorHelper} from 'ngrx-helper';
 
 const selector = createSelectorHelper<ProjectState>(projectFeatureKey);
 

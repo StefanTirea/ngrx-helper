@@ -1,6 +1,6 @@
 import {projectLoadActions, selectedProjectIdActions} from './project.actions';
 import {Project} from '../model/project.model';
-import {combineFeatureReducers, createAppReducer, createHttpReducer, LazyValue} from 'shortlist-ngrx-helper';
+import {combineFeatureReducers, createAppReducer, createHttpReducer, LazyValue} from 'ngrx-helper';
 
 export const projectFeatureKey = 'project-helper';
 

@@ -2,17 +2,17 @@
 
 <p align="center">
   <br />
-  <a href="https://github.com/StefanTirea/shortlist-ngrx-helper/issues">Report Bug</a>
+  <a href="https://github.com/StefanTirea/ngrx-helper/issues">Report Bug</a>
   ·
-  <a href="https://github.com/StefanTirea/shortlist-ngrx-helper/issues">Request Feature</a>
+  <a href="https://github.com/StefanTirea/ngrx-helper/issues">Request Feature</a>
 </p>
 
 
 
 <!-- TABLE OF CONTENTS -->
-<summary>Table of Contents</summary>
+## Table of Contents
   <ol>
-    <li><a href="#About">About The Project</a></li>
+    <li><a href="#About">About</a></li>
     <li><a href="#installation">Installation</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#example-app">Example App</a></li>
@@ -47,7 +47,7 @@ type.
 **1. Initial setup of the Store, Actions & Reducers**
 
 ````typescript
-import {LazyValue, createHttpReducer, createHttpActions} from 'shortlist-ngrx-helper';
+import {LazyValue, createHttpReducer, createHttpActions} from 'ngrx-helper';
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 
 export interface ProjectState {
@@ -76,7 +76,7 @@ export const selectProject = selector(state => state.project);
 
 ````typescript
 import {HttpClient} from '@angular/common/http';
-import {createHttpEffect} from 'shortlist-ngrx-helper';
+import {createHttpEffect} from 'ngrx-helper';
 import {Actions} from '@ngrx/effects';
 
 @Injectable()
@@ -198,7 +198,7 @@ export class ProjectView extends AutoUnsubscribe {
 
 A very small example app can be found in `projects/demo-app`. This includes a brief comparison
 between `ngrx-data` (`project-data` directory)
-and the `shortlist-ngrx-helper` (`project-helper` directory) implementation.
+and the `ngrx-helper` (`project-helper` directory) implementation.
 
 ### Running the Example locally
 

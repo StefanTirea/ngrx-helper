@@ -1,5 +1,5 @@
 /*
- * Public API Surface of shortlist-ngrx-helper
+ * Public API Surface of ngrx-helper
  */
 
 // ngrx helper methods

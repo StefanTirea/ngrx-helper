@@ -10,7 +10,7 @@
 
 # dependencies
 /node_modules
-projects/shortlist-ngrx-helper/node_modules
+projects/ngrx-helper/node_modules
 
 # profiling files
 chrome-profiler-events*.json

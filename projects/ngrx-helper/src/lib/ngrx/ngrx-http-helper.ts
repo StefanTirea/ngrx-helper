@@ -91,7 +91,7 @@ export const createHttpReducer = <S, K extends keyof S>(initState: S, actions: H
  *
  * ```typescript
  * import {HttpClient} from '@angular/common/http';
- * import {createHttpEffect} from 'shortlist-ngrx-helper';
+ * import {createHttpEffect} from 'ngrx-helper';
  * import {Actions} from '@ngrx/effects';
  *
  * @Injectable()

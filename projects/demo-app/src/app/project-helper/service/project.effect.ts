@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect} from '@ngrx/effects';
 import {ProjectService} from './project.service';
 import {projectLoadActions} from '../store/project.actions';
-import {createHttpEffect} from 'shortlist-ngrx-helper';
+import {createHttpEffect} from 'ngrx-helper';
 import {tap} from 'rxjs';
 import {Project} from '../model/project.model';
 

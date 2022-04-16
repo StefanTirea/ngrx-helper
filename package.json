@@ -1,10 +1,10 @@
 {
-  "name": "shortlist-ngrx-helper",
+  "name": "ngrx-helper",
   "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build shortlist-ngrx-helper",
+    "build": "ng build ngrx-helper",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "mock-server": "json-server --watch projects/demo-app/src/projects.json"

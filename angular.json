@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "shortlist-ngrx-helper": {
+    "ngrx-helper": {
       "projectType": "library",
-      "root": "projects/shortlist-ngrx-helper",
-      "sourceRoot": "projects/shortlist-ngrx-helper/src",
+      "root": "projects/ngrx-helper",
+      "sourceRoot": "projects/ngrx-helper/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/shortlist-ngrx-helper/ng-package.json"
+            "project": "projects/ngrx-helper/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/shortlist-ngrx-helper/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngrx-helper/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/shortlist-ngrx-helper/tsconfig.lib.json"
+              "tsConfig": "projects/ngrx-helper/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,9 +27,9 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/shortlist-ngrx-helper/src/test.ts",
-            "tsConfig": "projects/shortlist-ngrx-helper/tsconfig.spec.json",
-            "karmaConfig": "projects/shortlist-ngrx-helper/karma.conf.js"
+            "main": "projects/ngrx-helper/src/test.ts",
+            "tsConfig": "projects/ngrx-helper/tsconfig.spec.json",
+            "karmaConfig": "projects/ngrx-helper/karma.conf.js"
           }
         }
       }
@@ -136,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "shortlist-ngrx-helper"
+  "defaultProject": "ngrx-helper"
 }

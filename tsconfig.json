@@ -15,9 +15,9 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "paths": {
-      "shortlist-ngrx-helper": [
-        "dist/shortlist-ngrx-helper/shortlist-ngrx-helper",
-        "dist/shortlist-ngrx-helper"
+      "ngrx-helper": [
+        "dist/ngrx-helper/ngrx-helper",
+        "dist/ngrx-helper"
       ]
     },
     "target": "es2017",
