@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect} from '@ngrx/effects';
 import {ProjectService} from './project.service';
 import {projectLoadActions} from '../store/project.actions';
-import {createHttpEffect} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-http-helper';
-import {tap} from 'rxjs/operators';
+import {createHttpEffect} from 'shortlist-ngrx-helper';
+import {tap} from 'rxjs';
 import {Project} from '../model/project.model';
 
 @Injectable()

@@ -1,7 +1,7 @@
-import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {projectFeatureKey, ProjectState} from './project.store';
+import {createSelectorHelper} from 'shortlist-ngrx-helper';
 
-const selectFeature = createFeatureSelector<ProjectState>(projectFeatureKey);
+const selector = createSelectorHelper<ProjectState>(projectFeatureKey);
 
-export const selectProjects = createSelector(selectFeature, state => state.projects);
-export const selectProjectId = createSelector(selectFeature, state => state.selectedProjectId);
+export const selectProjects = selector(state => state.projects);
+export const selectProjectId = selector(state => state.selectedProjectId);

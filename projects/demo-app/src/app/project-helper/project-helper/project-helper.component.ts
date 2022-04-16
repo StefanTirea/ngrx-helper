@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
-import {LazyValue} from '../../../../../shortlist-ngrx-helper/src/lib/lazy-value';
+import {LazyValue} from 'shortlist-ngrx-helper';
 import {Store} from '@ngrx/store';
 import {projectLoadActions, selectedProjectIdActions} from '../store/project.actions';
 import {selectProjectId, selectProjects} from '../store/project.selectors';

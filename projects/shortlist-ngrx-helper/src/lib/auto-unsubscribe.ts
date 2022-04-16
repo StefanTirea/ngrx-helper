@@ -1,6 +1,5 @@
 import {Directive, OnDestroy} from "@angular/core";
-import {takeUntil} from "rxjs/operators";
-import {Observable, Subject} from "rxjs";
+import {Observable, Subject, takeUntil} from "rxjs";
 
 // using Directive to avoid "Class is using Angular features but is not decorated. Please add an explicit Angular decorator"
 @Directive()

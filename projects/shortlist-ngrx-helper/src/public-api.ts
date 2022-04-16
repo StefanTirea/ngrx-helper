@@ -13,6 +13,7 @@ export {
 export * from './lib/lazy-value';
 
 // alternative directive to `*ngIf` without removing the view when falsy
+export * from './lib/let/let.directive';
 export * from './lib/let/let-directive.module';
 
 // auto unsubscribe subscription on component destroy

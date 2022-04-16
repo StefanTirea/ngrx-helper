@@ -1,9 +1,6 @@
-import {LazyValue} from '../../../../../shortlist-ngrx-helper/src/lib/lazy-value';
-import {createHttpReducer} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-http-helper';
 import {projectLoadActions, selectedProjectIdActions} from './project.actions';
-import {combineFeatureReducers} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-util';
-import {createAppReducer} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-app-helper';
 import {Project} from '../model/project.model';
+import {combineFeatureReducers, createAppReducer, createHttpReducer, LazyValue} from 'shortlist-ngrx-helper';
 
 export const projectFeatureKey = 'project-helper';
 

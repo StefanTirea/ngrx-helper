@@ -1,4 +1,4 @@
-<div *ngIf="(projects$ | async) let projects">
+<div *ngLet="(projects$ | async) let projects">
 
   <p *ngIf="loading$ | async">loading...</p>
 

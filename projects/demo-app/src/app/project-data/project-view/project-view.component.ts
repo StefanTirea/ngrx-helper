@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
+import {catchError, EMPTY, Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {ProjectService} from '../service/project.service';
 import {selectProjectId} from '../store/project.selectors';
@@ -20,16 +20,13 @@ export class ProjectViewComponent {
 
   constructor(private store: Store,
               private projectService: ProjectService) {
-    projectService.getAll();
-    this.projects$ = projectService.entities$;
-    this.loading$ = projectService.loading$;
-    // auto unsubscribe would also be required
-    this.projects$.subscribe({
-      error: err => {
+    // subscription in view => must use *ngLet because in case of error is undefined :/
+    this.projects$ = projectService.getAll()
+      .pipe(catchError(() => {
         this.error = true;
-        console.log(err);
-      }
-    });
+        return EMPTY;
+      }));
+    this.loading$ = projectService.loading$;
     this.selectedProject$ = store.select(selectProjectId);
   }
 

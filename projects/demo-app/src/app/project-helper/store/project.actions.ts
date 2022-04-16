@@ -1,5 +1,4 @@
-import {createHttpActions} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-http-helper';
-import {createAppActions} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-app-helper';
+import {createAppActions, createHttpActions} from 'shortlist-ngrx-helper';
 import {Project} from '../model/project.model';
 
 export const projectLoadActions = createHttpActions<void, Project[]>('[PROJECT-HELPER] Project Load');

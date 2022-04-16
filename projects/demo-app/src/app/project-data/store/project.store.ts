@@ -1,6 +1,5 @@
 import {selectedProjectIdActions} from './project.actions';
-import {combineFeatureReducers} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-util';
-import {createAppReducer} from '../../../../../shortlist-ngrx-helper/src/lib/ngrx/ngrx-app-helper';
+import {combineFeatureReducers, createAppReducer} from 'shortlist-ngrx-helper';
 
 export const projectFeatureKey = 'project-data';
 
