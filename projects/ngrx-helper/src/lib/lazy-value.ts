@@ -22,4 +22,8 @@ export class LazyValue<T> {
   public map(fn: (value: T) => any): any | undefined {
     return this.value ? fn(this.value) : undefined;
   }
+
+  public is5xxError(): boolean {
+    return this.error ? String(this.error.status)[0] === '5' : false;
+  }
 }

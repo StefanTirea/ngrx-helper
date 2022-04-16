@@ -1,24 +1,4 @@
-<h1 align="center">NGRX Helper Library</h1>
-
-<p align="center">
-  <br />
-  <a href="https://github.com/StefanTirea/ngrx-helper/issues">Report Bug</a>
-  ·
-  <a href="https://github.com/StefanTirea/ngrx-helper/issues">Request Feature</a>
-</p>
-
-
-
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
-  <ol>
-    <li><a href="#About">About</a></li>
-    <li><a href="#installation">Installation</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#example-app">Example App</a></li>
-    <li><a href="#limitations">Limitations</a></li>
-    <li><a href="#build">Build</a></li>
-  </ol>
+# NGRX Helper Library
 
 ## About
 
@@ -31,12 +11,6 @@ boilerplate code (for http calls).
 * Auto-Unsubscribe subscriptions on Component Destroy
 * `*ngLet` Directive as an alternative to `*ngIf` but without removing the view when the value is falsy
 * `AutoUnsubscribe` from an `Observable<T>` on Angular Component Destroy Lifecycle
-
-## Installation
-
-Run command: `npm i @stefantirea/ngrx-helper` in your Angular Project.
-
-https://www.npmjs.com/package/@stefantirea/ngrx-helper
 
 ## Usage
 
@@ -196,22 +170,7 @@ export class ProjectView extends AutoUnsubscribe {
 }
 ```
 
-## Example App
-
-A very small example app can be found in `projects/demo-app`. This includes a brief comparison
-between `ngrx-data` (`project-data` directory)
-and the `ngrx-helper` (`project-helper` directory) implementation.
-
-### Running the Example locally
-
-1. Run `nmp start` & `npm mock-server` for a dev server.
-2. Navigate to `http://localhost:4200/`.
-
 ## Limitations
 
 The NGRX Helper methods **requires** using the built-in wrapper type `LazyValue<T>`. Currently, there is no other way
 around it.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.

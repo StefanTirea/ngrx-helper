@@ -1,6 +1,22 @@
 {
-  "name": "ngrx-helper",
+  "name": "@stefantirea/ngrx-helper",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/StefanTirea/ngrx-helper.git"
+  },
+  "keywords": [
+    "angular",
+    "ngrx",
+    "helper-functions"
+  ],
+  "author": "Stefan Tirea",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StefanTirea/ngrx-helper/issues"
+  },
+  "homepage": "https://github.com/StefanTirea/ngrx-helper#readme",
+
   "peerDependencies": {
     "@angular/common": "^13.3.3",
     "@angular/core": "^13.3.3"
